@@ -327,6 +327,27 @@ if test "$enable_pocket" != "no"; then
   AC_DEFINE(GOA_POCKET_ENABLED, 1, [Enable Pocket data provider])
 fi
 
+# Foursquare
+AC_ARG_ENABLE([foursquare],
+              [AS_HELP_STRING([--enable-foursquare],
+                              [Enable Foursquare provider])],
+                              [],
+                              [enable_foursquare=yes])
+AC_ARG_WITH(foursquare-client-id,
+            [AS_HELP_STRING([--with-foursquare-client-id],
+                            [Foursquare OAuth 2.0 client id])],
+                            [],
+                            [])
+if test "$with_foursquare_client_id" = ""; then
+  with_foursquare_client_id="L0YBPIRRUQP3CEHAGZTXLINQXB2J0GMTDJKQDUVUJZKH11LW"
+fi
+AC_DEFINE_UNQUOTED(GOA_FOURSQUARE_CLIENT_ID,
+                   ["$with_foursquare_client_id"],
+                   [Foursquare OAuth 2.0 client id])
+if test "$enable_foursquare" != "no"; then
+  AC_DEFINE(GOA_FOURSQUARE_ENABLED, 1, [Enable Foursquare data provider])
+fi
+
 # Kerberos
 AC_ARG_ENABLE([kerberos],
               [AS_HELP_STRING([--enable-kerberos],
@@ -514,8 +535,9 @@ echo "
 	Yahoo provider:                 ${enable_yahoo} (OAuth 1.0, key:${with_yahoo_consumer_key} secret:${with_yahoo_consumer_secret})
 	Facebook provider:              ${enable_facebook} (OAuth 2.0, id:${with_facebook_client_id})
 	Windows Live provider:          ${enable_windows_live} (OAuth 2.0, id:${with_windows_live_client_id})
-        Telepathy provider:             ${enable_telepathy}
-        Pocket provider:                ${enable_pocket} (id:${with_pocket_client_id})
+	Telepathy provider:             ${enable_telepathy}
+	Pocket provider:                ${enable_pocket} (id:${with_pocket_client_id})
+	Foursquare provider:            ${enable_foursquare} (id:${with_foursquare_client_id})
 
 	Maintainer mode:                ${USE_MAINTAINER_MODE}
 	Building api docs:              ${enable_gtk_doc}
